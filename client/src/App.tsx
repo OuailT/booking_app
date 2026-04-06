@@ -4,7 +4,7 @@ import Register from "./pages/Register";
 import EmployeeList from "./pages/EmployeeList";
 import ShiftRequest from "./pages/ShiftRequest";
 import ApprovedSchedule from "./pages/ApprovedSchedule";
-import Availability from "./pages/MyAvailability";
+import MyAvailability from "./pages/MyAvailability";
 import "./App.css";
 
 function App() {
@@ -14,9 +14,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/employeelist" element={<EmployeeList />} />
-        <Route path="/jobschedule" element={<ShiftRequest />} />
-        <Route path="/workschedule" element={<ApprovedSchedule />} />
-        <Route path="/availability" element={<Availability />} />
+        <Route path="/shiftrequest" element={<ShiftRequest />} />
+        <Route path="/approvedschedule" element={<ApprovedSchedule />} />
+        <Route path="/myavailability" element={<MyAvailability />} />
       </Routes>
     </BrowserRouter>
   );
