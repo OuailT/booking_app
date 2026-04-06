@@ -13,9 +13,9 @@ function Login() {
         try {
             await api.post('/login', { email, password });
 
-            navigate('/'); // Navigate to index if status is 200
+            // Navigate to page if status is ok: navigate("/page")
         } catch (error) {
-            console.error(error);
+            console.error(`An unexpected error occurred `, error);
         }
     }
     return(

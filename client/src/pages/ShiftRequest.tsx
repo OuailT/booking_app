@@ -1,5 +1,5 @@
 function ShiftRequest() {
-  return <>JobSchedule</>;
+  return <>ShiftRequest</>;
 }
 
 export default ShiftRequest;

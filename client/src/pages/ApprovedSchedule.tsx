@@ -1,5 +1,5 @@
 function ApprovedSchedule() {
-  return <>WorkSchedule</>;
+  return <>ApprovedSchedule</>;
 }
 
 export default ApprovedSchedule;

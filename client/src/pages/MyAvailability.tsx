@@ -1,5 +1,5 @@
 function MyAvailability() {
-  return <>Availability</>;
+  return <>MyAvailability</>;
 }
 
 export default MyAvailability;
