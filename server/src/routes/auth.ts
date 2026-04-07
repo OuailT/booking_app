@@ -1,32 +1,43 @@
 import { Router, Request, Response } from 'express';
-import { z } from 'zod';
-import { prisma } from '../index';
-import { generateToken } from '../utils/jwt';
+import { validateBasicAuth } from '../utils/auth';
 
 const router = Router();
 
-const loginSchema = z.object({
-  loginCode: z.string().min(1, 'Login code is required'),
-});
+/**
+ * POST /auth/login
+ *
+ * Body: { "username": "admin", "password": "admin123" }
+ *
+ * Returns the user info on success.
+ * For simple/classroom use — no tokens issued.
+ */
+router.post('/login', (req: Request, res: Response): void => {
+  const { username, password } = req.body;
 
-// POST /auth/login
-router.post('/login', async (req: Request, res: Response): Promise<void> => {
-  const parsed = loginSchema.safeParse(req.body);
-  if (!parsed.success) {
-    res.status(400).json({ error: parsed.error.flatten() });
+  if (!username || !password) {
+    res.status(400).json({ error: 'username and password are required' });
     return;
   }
 
-  const { loginCode } = parsed.data;
+  // Build a Basic Auth header string so we can reuse validateBasicAuth
+  const encoded = Buffer.from(`${username}:${password}`).toString('base64');
+  const user = validateBasicAuth(`Basic ${encoded}`);
 
-  const user = await prisma.user.findUnique({ where: { loginCode } });
   if (!user) {
-    res.status(401).json({ error: 'Invalid login code' });
+    res.status(401).json({ error: 'Invalid username or password' });
     return;
   }
 
-  const token = generateToken({ userId: user.id, role: user.role });
-  res.json({ token, user: { id: user.id, name: user.name, role: user.role } });
+  res.json({
+    message: 'Login successful',
+    user: {
+      userId: user.userId,
+      username: user.username,
+      role: user.role,
+    },
+    // Remind the client how to authenticate subsequent requests
+    auth_instructions: 'Send "Authorization: Basic base64(username:password)" on every request.',
+  });
 });
 
 export default router;

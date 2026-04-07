@@ -2,12 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -21,11 +22,18 @@ enum Shift {
   NIGHT
 }
 
+enum Position {
+  WAITER
+  RUNNER
+  HEAD_WAITER
+}
+
 model User {
   id        String   @id @default(uuid())
   name      String
   role      Role     @default(EMPLOYEE)
   loginCode String   @unique
+  position  Position
 
   availabilities Availability[]
   schedules      Schedule[]

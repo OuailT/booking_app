@@ -1,32 +1,26 @@
 import { Request, Response, NextFunction } from 'express';
-import { verifyToken, JwtPayload } from '../utils/jwt';
+import { validateBasicAuth, AuthUser } from '../utils/auth';
 import { Role } from '../../generated/prisma';
 
 // Extend Express Request to include user
 declare global {
   namespace Express {
     interface Request {
-      user?: JwtPayload;
+      user?: AuthUser;
     }
   }
 }
 
 export const authenticateUser = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers['authorization'];
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(401).json({ error: 'Missing or invalid Authorization header' });
+  const user = validateBasicAuth(authHeader);
+
+  if (!user) {
+    res.status(401).json({ error: 'Invalid or missing credentials. Use Basic Auth (username:password).' });
     return;
   }
 
-  const token = authHeader.split(' ')[1];
-  const payload = verifyToken(token);
-
-  if (!payload) {
-    res.status(401).json({ error: 'Invalid or expired token' });
-    return;
-  }
-
-  req.user = payload;
+  req.user = user;
   next();
 };
 

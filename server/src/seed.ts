@@ -1,46 +1,66 @@
-import { PrismaClient } from '../generated/prisma';
+import { PrismaClient } from "../generated/prisma";
+import fs from "fs";
+import path from "path";
 
 const prisma = new PrismaClient();
 
+// Map each file to its corresponding Prisma model name (using singular standard naming)
+const seedMapping = [
+  { file: "employers.json", model: "user" },
+  { file: "employees.json", model: "user" },
+  { file: "availabilities.json", model: "availability" },
+  { file: "schedules.json", model: "schedule" }
+];
+
+async function deleteAllData() {
+  // Delete in reverse order to avoid FK errors (child → parent)
+  // Our dependencies: availability -> user, schedule -> user.
+  // We should delete schedule and availability before deleting user.
+  const modelsToDelete = ["schedule", "availability", "user"];
+
+  for (const modelName of modelsToDelete) {
+    const model: any = prisma[modelName as keyof typeof prisma];
+    if (!model) continue;
+    try {
+      await model.deleteMany({});
+      console.log(`🧹 Cleared data from ${modelName}`);
+    } catch (error) {
+      console.error(`Error clearing data from ${modelName}:`, error);
+    }
+  }
+}
+
 async function main() {
-  const employer = await prisma.user.upsert({
-    where: { loginCode: 'employer-001' },
-    update: {},
-    create: {
-      name: 'Admin Employer',
-      role: 'EMPLOYER',
-      loginCode: 'employer-001',
-    },
-  });
+  const dataDirectory = path.join(__dirname, "../prisma/seedData");
 
-  console.log('Seeded employer:', employer);
+  // Clear existing data before seeding
+  await deleteAllData();
 
-  const employee1 = await prisma.user.upsert({
-    where: { loginCode: 'emp-alice' },
-    update: {},
-    create: {
-      name: 'Alice Johnson',
-      role: 'EMPLOYEE',
-      loginCode: 'emp-alice',
-    },
-  });
+  // Seed each model in order
+  for (const { file, model: modelName } of seedMapping) {
+    const filePath = path.join(dataDirectory, file);
+    if (!fs.existsSync(filePath)) {
+      console.warn(`⚠️ Warning: Seed file ${file} not found. Skipping.`);
+      continue;
+    }
 
-  const employee2 = await prisma.user.upsert({
-    where: { loginCode: 'emp-bob' },
-    update: {},
-    create: {
-      name: 'Bob Smith',
-      role: 'EMPLOYEE',
-      loginCode: 'emp-bob',
-    },
-  });
+    const jsonData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    const model: any = prisma[modelName as keyof typeof prisma];
 
-  console.log('Seeded employees:', employee1, employee2);
+    try {
+      for (const data of jsonData) {
+        await model.create({ data });
+      }
+      console.log(`🌱 Seeded ${modelName} with data from ${file}`);
+    } catch (error) {
+      console.error(`💥 Error seeding data for ${modelName} from ${file}:`, error);
+    }
+  }
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(() => prisma.$disconnect());
+  .catch((e) => console.error(e))
+  .finally(async () => {
+    await prisma.$disconnect();
+    console.log("✅ Seeding completed.");
+  });
