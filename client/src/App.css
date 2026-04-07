@@ -1,0 +1,14 @@
+.week-schedule-table{
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 800px;
+    text-align: center;
+    margin-top: 20px;
+}
+.week-schedule-cell{
+    border: 1px solid #d9d9d9;
+    padding: 10px;
+    height: 70px;
+    background-color: #fff;
+    font-size: 16px;
+}
