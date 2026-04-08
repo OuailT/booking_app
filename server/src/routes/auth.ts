@@ -1,43 +1,46 @@
 import { Router, Request, Response } from 'express';
-import { validateBasicAuth } from '../utils/auth';
+import { prisma } from '../index';
 
 const router = Router();
 
 /**
  * POST /auth/login
  *
- * Body: { "username": "admin", "password": "admin123" }
+ * Body: { "loginCode": "ADMIN-001" }
  *
  * Returns the user info on success.
  * For simple/classroom use — no tokens issued.
  */
-router.post('/login', (req: Request, res: Response): void => {
-  const { username, password } = req.body;
+router.post('/login', async (req: Request, res: Response): Promise<void> => {
+  const { loginCode } = req.body;
 
-  if (!username || !password) {
-    res.status(400).json({ error: 'username and password are required' });
+  if (!loginCode) {
+    res.status(400).json({ error: 'loginCode is required' });
     return;
   }
 
-  // Build a Basic Auth header string so we can reuse validateBasicAuth
-  const encoded = Buffer.from(`${username}:${password}`).toString('base64');
-  const user = validateBasicAuth(`Basic ${encoded}`);
+  try {
+    const user = await prisma.user.findUnique({ where: { loginCode } });
 
-  if (!user) {
-    res.status(401).json({ error: 'Invalid username or password' });
-    return;
+    if (!user) {
+      res.status(401).json({ error: 'Invalid loginCode' });
+      return;
+    }
+
+    res.json({
+      message: 'Login successful',
+      user: {
+        userId: user.id,
+        name: user.name,
+        role: user.role,
+        position: user.position
+      },
+      // Remind the client how to authenticate subsequent requests
+      auth_instructions: 'Send "Authorization: <loginCode>" on every request.',
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error.' });
   }
-
-  res.json({
-    message: 'Login successful',
-    user: {
-      userId: user.userId,
-      username: user.username,
-      role: user.role,
-    },
-    // Remind the client how to authenticate subsequent requests
-    auth_instructions: 'Send "Authorization: Basic base64(username:password)" on every request.',
-  });
 });
 
 export default router;
