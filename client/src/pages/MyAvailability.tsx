@@ -10,6 +10,9 @@ function MyAvailability() {
     "Afternoon shift",
     "Night shift",
   ];
+  const test = (date: Date) => {
+    console.log(date);
+  }
   return (
     <div className="my-availability">
       <h2 style={{marginLeft: "50px"}}>My availability</h2>
@@ -34,7 +37,7 @@ function MyAvailability() {
 
               {days.map((day) => (
                 <td key={`${shift}-${day}`} className="week-schedule-cell">
-                  {/* Här kan du lägga namn, tider, bokningar osv */}
+                    {/* Available / Unavailable */}
                 </td>
               ))}
             </tr>
@@ -43,7 +46,7 @@ function MyAvailability() {
             <td></td>
             {days.map((day) => (
               <td key={`${day}`}>
-                  <button>choose</button>
+                  <button onClick={() => test(day)}>choose</button>
               </td>
             ))}
           </tr>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import '../styles/Login.css';
+import Cookie from "universal-cookie";
 
 function Login() {
     const [email, setEmail] = useState<string>("");
@@ -9,10 +10,19 @@ function Login() {
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const navigate = useNavigate();
 
+    const cookies = new Cookie();
+
     const handleLogin = async () => {
         try {
-            await api.post('/login', { email, password });
-
+            // backend return jws token
+            const response = await api.post('/login', { email, password });
+            const token = response.data.token;
+            if(rememberMe) {
+                // create a cookie that expires after 7 days
+                cookies.set("jwt_authorization", token, {
+                    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+                })
+            }
             // Navigate to page if status is ok: navigate("/page")
         } catch (error) {
             console.error(`An unexpected error occurred `, error);
