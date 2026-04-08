@@ -8,9 +8,7 @@ const router = Router();
  *
  * Body: { "loginCode": "ADMIN-001" }
  *
- * Returns the user info on success.
- * For simple/classroom use — no tokens issued.
- */
+*/
 router.post('/login', async (req: Request, res: Response): Promise<void> => {
   const { loginCode } = req.body;
 
