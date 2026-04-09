@@ -2,10 +2,14 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
-import './App.css'
+import './App.css';
+import {useGetEmployeesQuery} from "./api"; 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const { data: employees, isLoading, error } = useGetEmployeesQuery();
+  // displayed all the employees from the database into the console browser.
+  console.log(employees);
 
   return (
     <>
