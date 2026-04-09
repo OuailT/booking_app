@@ -16,7 +16,7 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
 const scheduleSchema = z.object({
   assignments: z.array(
     z.object({
-      userId: z.string().uuid('userId must be a valid UUID'),
+      userId: z.string(),
       date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format'),
       shift: z.enum(['MORNING', 'AFTERNOON', 'NIGHT']),
     })
