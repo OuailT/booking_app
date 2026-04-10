@@ -3,140 +3,140 @@
     "id": "bbbbbbbb-0000-0000-0000-000000000001",
     "name": "Alice Martin",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-001",
+    "password": "001",
     "position": "WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000002",
     "name": "Bob Johnson",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-002",
+    "password": "001",
     "position": "RUNNER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000003",
     "name": "Clara Bennett",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-003",
+    "password": "001",
     "position": "HEAD_WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000004",
     "name": "David Chen",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-004",
+    "password": "001",
     "position": "WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000005",
     "name": "Eva Rossi",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-005",
+    "password": "001",
     "position": "RUNNER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000006",
     "name": "Frank Müller",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-006",
+    "password": "001",
     "position": "WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000007",
     "name": "Grace Park",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-007",
+    "password": "001",
     "position": "HEAD_WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000008",
     "name": "Henry Dubois",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-008",
+    "password": "001",
     "position": "RUNNER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000009",
     "name": "Isla Thompson",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-009",
+    "password": "001",
     "position": "WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000010",
     "name": "James Nguyen",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-010",
+    "password": "001",
     "position": "RUNNER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000011",
     "name": "Karen Patel",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-011",
+    "password": "001",
     "position": "WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000012",
     "name": "Liam O'Brien",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-012",
+    "password": "001",
     "position": "HEAD_WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000013",
     "name": "Mia Santos",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-013",
+    "password": "001",
     "position": "RUNNER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000014",
     "name": "Noah Schneider",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-014",
+    "password": "001",
     "position": "WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000015",
     "name": "Olivia Fernandez",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-015",
+    "password": "001",
     "position": "RUNNER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000016",
     "name": "Peter Kowalski",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-016",
+    "password": "001",
     "position": "WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000017",
     "name": "Quinn Adams",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-017",
+    "password": "001",
     "position": "HEAD_WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000018",
     "name": "Rachel Kim",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-018",
+    "password": "001",
     "position": "RUNNER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000019",
     "name": "Samuel Okafor",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-019",
+    "password": "001",
     "position": "WAITER"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000020",
     "name": "Tina Larsson",
     "role": "EMPLOYEE",
-    "loginCode": "EMP-020",
+    "password": "001",
     "position": "RUNNER"
   }
 ]

@@ -1,10 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export interface Employee {
-  id: string;
+export interface CreateEmployeePayload {
   name: string;
+  password: string;
+  position: 'WAITER' | 'RUNNER' | 'HEAD_WAITER';
+}
+
+export interface Employee extends CreateEmployeePayload {
+  id: string;
   role: string;
-  loginCode: string;
+  availabilities?: Availability[];
 }
 
 export interface Availability {
@@ -12,6 +17,11 @@ export interface Availability {
   userId: string;
   date: string;
   shift: 'MORNING' | 'AFTERNOON' | 'NIGHT';
+  status: 'AVAILABLE' | 'UNAVAILABLE' | 'PREFERRED_TO_WORK';
+  user?: {
+    id: string;
+    name: string;
+  };
 }
 
 export interface UpdateAvailabilityPayload {
@@ -19,6 +29,7 @@ export interface UpdateAvailabilityPayload {
   availabilities: {
     date: string;
     shift: 'MORNING' | 'AFTERNOON' | 'NIGHT';
+    status: 'AVAILABLE' | 'UNAVAILABLE' | 'PREFERRED_TO_WORK';
   }[];
 }
 
@@ -58,8 +69,24 @@ export const api = createApi({
       query: () => `/employees`,
       providesTags: ["Employees"],
     }),
+    getEmployeeById: build.query<Employee, string>({
+      query: (id) => `/employees/${id}`,
+      providesTags: (_result, _error, id) => [{ type: "Employees", id }],
+    }),
+    createEmployee: build.mutation<Employee, CreateEmployeePayload>({
+      query: (payload) => ({
+        url: `/employees`,
+        method: 'POST',
+        body: payload,
+      }),
+      invalidatesTags: ["Employees"],
+    }),
 
     // --- Availability ---
+    getAvailabilities: build.query<Availability[], void>({
+      query: () => `/availability`,
+      providesTags: ["Availability"],
+    }),
     getAvailabilityByEmployeeId: build.query<Availability[], string>({
       query: (employeeId) => `/availability/${employeeId}`,
       providesTags: (_result, _error, id) => [{ type: "Availability", id }],
@@ -92,7 +119,10 @@ export const api = createApi({
 export const {
   // Employees
   useGetEmployeesQuery,
+  useGetEmployeeByIdQuery,
+  useCreateEmployeeMutation,
   // Availability
+  useGetAvailabilitiesQuery,
   useGetAvailabilityByEmployeeIdQuery,
   useUpdateAvailabilityMutation,
   // Schedule
