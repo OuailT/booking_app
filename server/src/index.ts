@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import { PrismaClient } from '../generated/prisma';
 
 
+import authRoutes from './routes/auth';
 import employeeRoutes from './routes/employees';
 import availabilityRoutes from './routes/availability';
 import scheduleRoutes from './routes/schedule';
@@ -18,7 +19,8 @@ app.use(morgan('dev'));
 
 // Routes
 
-app.use('/employees', employeeRoutes); // Todo: Alen
+app.use('/auth', authRoutes);
+app.use('/employees', employeeRoutes);
 app.use('/availability', availabilityRoutes);
 app.use('/schedule', scheduleRoutes);
 

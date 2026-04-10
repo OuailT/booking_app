@@ -55,6 +55,15 @@ export interface UpdateSchedulePayload {
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_BASE_URL,
+ 
+  prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   reducerPath: "api",
   // tags for invalidation and refetching
