@@ -5,6 +5,14 @@ import { prisma } from '../index';
 
 const router = Router();
 
+router.get('/', async (req: Request, res: Response): Promise<void> => {
+  const availabilities = await prisma.availability.findMany({
+    include: { user: { select: { id: true, name: true } } },
+    orderBy: [{ date: 'asc' }, { shift: 'asc' }],
+  });
+  res.json(availabilities);
+});
+
 router.get('/:employeeId', async (req: Request, res: Response): Promise<void> => {
   const { employeeId } = req.params;
 
@@ -21,6 +29,7 @@ const availabilitySchema = z.object({
     z.object({
       date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format'),
       shift: z.enum(['MORNING', 'AFTERNOON', 'NIGHT']),
+      status: z.enum(['AVAILABLE', 'UNAVAILABLE', 'PREFERRED_TO_WORK']).default('AVAILABLE'),
     })
   ).min(1, 'At least one availability entry is required'),
 });
@@ -39,7 +48,7 @@ router.put('/:employeeId', async (req: Request, res: Response): Promise<void> =>
 
   // Upsert each availability entry
   const results = await Promise.all(
-    availabilities.map(({ date, shift }) =>
+    availabilities.map(({ date, shift, status }) =>
       prisma.availability.upsert({
         where: {
           userId_date_shift: {
@@ -48,11 +57,12 @@ router.put('/:employeeId', async (req: Request, res: Response): Promise<void> =>
             shift,
           },
         },
-        update: {},
+        update: { status },
         create: {
           userId: employeeId as string,
           date: new Date(date),
           shift,
+          status,
         },
       })
     )

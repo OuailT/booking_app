@@ -3,7 +3,7 @@
     "id": "aaaaaaaa-0000-0000-0000-000000000001",
     "name": "Admin Owner",
     "role": "EMPLOYER",
-    "loginCode": "ADMIN-001",
+    "password": "ADMIN",
     "position": "HEAD_WAITER"
   }
 ]

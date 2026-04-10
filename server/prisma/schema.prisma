@@ -22,6 +22,12 @@ enum Shift {
   NIGHT
 }
 
+enum AvailabilityStatus {
+  AVAILABLE
+  UNAVAILABLE
+  PREFERRED_TO_WORK
+}
+
 enum Position {
   WAITER
   RUNNER
@@ -32,7 +38,7 @@ model User {
   id        String   @id @default(uuid())
   name      String
   role      Role     @default(EMPLOYEE)
-  loginCode String   @unique
+  password String    
   position  Position
 
   availabilities Availability[]
@@ -40,10 +46,11 @@ model User {
 }
 
 model Availability {
-  id        String   @id @default(uuid())
-  date      DateTime @db.Date
+  id        String             @id @default(uuid())
+  date      DateTime           @db.Date
   shift     Shift
-  user      User     @relation(fields: [userId], references: [id])
+  status    AvailabilityStatus @default(AVAILABLE)
+  user      User               @relation(fields: [userId], references: [id])
   userId    String
 
   @@unique([userId, date, shift])
