@@ -1,0 +1,35 @@
+.register h2 {
+  text-align: left;
+  padding: 50px;
+}
+.register-form{
+    display: flex;
+    justify-content: center;
+    background-color: #ccc;
+    padding: 20px;
+    text-align: left;
+    color: black;
+}
+.register-form form{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+.register-form button {
+    width: 100px;
+    margin-top: 50px;
+}
+.employee-photo {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+  border: 1px solid #000;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+}
+
+.employee-photo img {
+  max-width: 100%;
+  height: auto;
+}
