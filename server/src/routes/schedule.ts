@@ -1,9 +1,14 @@
 import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import { prisma } from '../index';
+import { authenticate } from '../middleware/Authenticate';
+import { requireRole } from '../middleware/RequireRole';
 
 
 const router = Router();
+
+//router.use(authenticate);
+//router.use(requireRole('EMPLOYER'));
 
 router.get('/', async (req: Request, res: Response): Promise<void> => {
   const schedules = await prisma.schedule.findMany({
@@ -27,7 +32,7 @@ const scheduleSchema = z.object({
 router.put('/', async (req: Request, res: Response): Promise<void> => {
   const parsed = scheduleSchema.safeParse(req.body);
   if (!parsed.success) {
-    res.status(400).json({ error: parsed.error.flatten() });
+    res.status(400).json({ error: z.treeifyError(parsed.error) });
     return;
   }
 
