@@ -1,0 +1,37 @@
+[
+  {
+    "id": "cccccccc-0000-0000-0000-000000000001",
+    "date": "2026-04-10T00:00:00.000Z",
+    "shift": "MORNING",
+    "userId": "bbbbbbbb-0000-0000-0000-000000000001",
+    "status": "AVAILABLE"
+  },
+  {
+    "id": "cccccccc-0000-0000-0000-000000000002",
+    "date": "2026-04-10T00:00:00.000Z",
+    "shift": "AFTERNOON",
+    "userId": "bbbbbbbb-0000-0000-0000-000000000002",
+    "status": "UNAVAILABLE"
+  },
+  {
+    "id": "cccccccc-0000-0000-0000-000000000003",
+    "date": "2026-04-11T00:00:00.000Z",
+    "shift": "NIGHT",
+    "userId": "bbbbbbbb-0000-0000-0000-000000000003",
+    "status": "PREFERRED_TO_WORK"
+  },
+  {
+    "id": "cccccccc-0000-0000-0000-000000000004",
+    "date": "2026-04-11T00:00:00.000Z",
+    "shift": "MORNING",
+    "userId": "bbbbbbbb-0000-0000-0000-000000000004",
+    "status": "AVAILABLE"
+  },
+  {
+    "id": "cccccccc-0000-0000-0000-000000000005",
+    "date": "2026-04-12T00:00:00.000Z",
+    "shift": "AFTERNOON",
+    "userId": "bbbbbbbb-0000-0000-0000-000000000005",
+    "status": "UNAVAILABLE"
+  }
+]

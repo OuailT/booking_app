@@ -12,8 +12,12 @@ function Login() {
     const handleLogin = async () => {
         try {
             await api.post('/login', { email, password });
-
-            // Navigate to page if status is ok: navigate("/page")
+        /*if (user.role === "EMPLOYER") {
+            show admin pages : Approved Schedule, Employee List, Register Employee, ShiftRequest
+            In every page return {user.role === "EMPLOYER" ? <EmployeeList /> : <EmployeeList />}
+        } else {
+             show employee pages : MyAvailability,ShiftRequest, Approved Schedule
+}*/
         } catch (error) {
             console.error(`An unexpected error occurred `, error);
         }
