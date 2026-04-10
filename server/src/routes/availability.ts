@@ -10,14 +10,15 @@ router.get(
   "/:employeeId",
   authenticateUser,
   async (req: Request, res: Response): Promise<void> => {
-    // const { employeeId } = req.params;
-    const employeeId = req.params.employeeId as string; // I have changed this to string because it is coming from the URL as a string, and we will handle the conversion in the database query if needed.
+    const { employeeId } = req.params;
 
     // Employees can only view their own availability
     if (req.user?.role === "EMPLOYEE" && req.user.userId !== employeeId) {
-      res.status(403).json({
-        error: "Access denied: You can only view your own availability",
-      });
+      res
+        .status(403)
+        .json({
+          error: "Access denied: You can only view your own availability",
+        });
       return;
     }
 
@@ -53,9 +54,11 @@ router.put(
 
     // Employees can only update their own availability
     if (req.user?.userId !== employeeId) {
-      res.status(403).json({
-        error: "Access denied: You can only set your own availability",
-      });
+      res
+        .status(403)
+        .json({
+          error: "Access denied: You can only set your own availability",
+        });
       return;
     }
 

@@ -1,24 +1,13 @@
 import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import { prisma } from '../index';
-import { authenticateUser, requireEmployer } from '../middleware/auth';
+
 
 const router = Router();
 
-// GET /schedule - Both roles (Employer: all; Employee: own only)
-router.get('/', authenticateUser, async (req: Request, res: Response): Promise<void> => {
-  if (req.user?.role === 'EMPLOYER') {
-    const schedules = await prisma.schedule.findMany({
-      include: { user: { select: { id: true, name: true } } },
-      orderBy: [{ date: 'asc' }, { shift: 'asc' }],
-    });
-    res.json(schedules);
-    return;
-  }
-
-  // Employee: only own schedule
+router.get('/', async (req: Request, res: Response): Promise<void> => {
   const schedules = await prisma.schedule.findMany({
-    where: { userId: req.user!.userId },
+    include: { user: { select: { id: true, name: true } } },
     orderBy: [{ date: 'asc' }, { shift: 'asc' }],
   });
   res.json(schedules);
@@ -34,8 +23,8 @@ const scheduleSchema = z.object({
   ).min(1, 'At least one assignment is required'),
 });
 
-// PUT /schedule - Employer only
-router.put('/', authenticateUser, requireEmployer, async (req: Request, res: Response): Promise<void> => {
+// PUT /schedule
+router.put('/', async (req: Request, res: Response): Promise<void> => {
   const parsed = scheduleSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.flatten() });
