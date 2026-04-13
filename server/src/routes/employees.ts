@@ -7,6 +7,7 @@ const router = Router();
 
 const createEmployeeSchema = z.object({
   name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Invalid email address'),
   password: z.string().min(1, 'Password is required'),
   position: z.enum(['WAITER', 'RUNNER', 'HEAD_WAITER']).default('WAITER'),
 });
@@ -15,7 +16,7 @@ const createEmployeeSchema = z.object({
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
   const employees = await prisma.user.findMany({
     where: { role: 'EMPLOYEE' },
-    select: { id: true, name: true, role: true, password: true, position: true, availabilities: true },
+    select: { id: true, name: true, email: true, role: true, password: true, position: true, availabilities: true },
   });
   res.json(employees);
 });
@@ -35,7 +36,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 router.get('/:id', async (req: Request, res: Response): Promise<void> => {
   const employee = await prisma.user.findUnique({
     where: { id: req.params.id as string, role: 'EMPLOYEE' },
-    select: { id: true, name: true, role: true, password: true, position: true, availabilities: true },
+    select: { id: true, name: true, email: true, role: true, password: true, position: true, availabilities: true },
   });
   if (!employee) {
     res.status(404).json({ error: 'Employee not found' });
