@@ -37,9 +37,11 @@ enum Position {
 model User {
   id        String   @id @default(uuid())
   name      String
+  email     String   @unique
   role      Role     @default(EMPLOYEE)
   password String    
   position  Position
+
 
   availabilities Availability[]
   schedules      Schedule[]
@@ -52,9 +54,8 @@ model Availability {
   status    AvailabilityStatus @default(AVAILABLE)
   user      User               @relation(fields: [userId], references: [id])
   userId    String
-
   @@unique([userId, date, shift])
-}
+} 
 
 model Schedule {
   id        String   @id @default(uuid())

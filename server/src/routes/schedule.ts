@@ -12,7 +12,7 @@ const router = Router();
 
 router.get('/', async (req: Request, res: Response): Promise<void> => {
   const schedules = await prisma.schedule.findMany({
-    include: { user: { select: { id: true, name: true } } },
+    include: { user: { select: { id: true, name: true, email: true } } },
     orderBy: [{ date: 'asc' }, { shift: 'asc' }],
   });
   res.json(schedules);
