@@ -4,139 +4,159 @@
     "name": "Alice Martin",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "WAITER"
+    "position": "WAITER",
+    "email": "alice.martin@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000002",
     "name": "Bob Johnson",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "RUNNER"
+    "position": "RUNNER",
+    "email": "bob.johnson@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000003",
     "name": "Clara Bennett",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "HEAD_WAITER"
+    "position": "HEAD_WAITER",
+    "email": "clara.bennett@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000004",
     "name": "David Chen",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "WAITER"
+    "position": "WAITER",
+    "email": "david.chen@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000005",
     "name": "Eva Rossi",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "RUNNER"
+    "position": "RUNNER",
+    "email": "eva.rossi@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000006",
     "name": "Frank Müller",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "WAITER"
+    "position": "WAITER",
+    "email": "frank.müller@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000007",
     "name": "Grace Park",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "HEAD_WAITER"
+    "position": "HEAD_WAITER",
+    "email": "grace.park@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000008",
     "name": "Henry Dubois",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "RUNNER"
+    "position": "RUNNER",
+    "email": "henry.dubois@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000009",
     "name": "Isla Thompson",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "WAITER"
+    "position": "WAITER",
+    "email": "isla.thompson@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000010",
     "name": "James Nguyen",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "RUNNER"
+    "position": "RUNNER",
+    "email": "james.nguyen@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000011",
     "name": "Karen Patel",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "WAITER"
+    "position": "WAITER",
+    "email": "karen.patel@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000012",
     "name": "Liam O'Brien",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "HEAD_WAITER"
+    "position": "HEAD_WAITER",
+    "email": "liam.o'brien@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000013",
     "name": "Mia Santos",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "RUNNER"
+    "position": "RUNNER",
+    "email": "mia.santos@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000014",
     "name": "Noah Schneider",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "WAITER"
+    "position": "WAITER",
+    "email": "noah.schneider@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000015",
     "name": "Olivia Fernandez",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "RUNNER"
+    "position": "RUNNER",
+    "email": "olivia.fernandez@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000016",
     "name": "Peter Kowalski",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "WAITER"
+    "position": "WAITER",
+    "email": "peter.kowalski@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000017",
     "name": "Quinn Adams",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "HEAD_WAITER"
+    "position": "HEAD_WAITER",
+    "email": "quinn.adams@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000018",
     "name": "Rachel Kim",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "RUNNER"
+    "position": "RUNNER",
+    "email": "rachel.kim@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000019",
     "name": "Samuel Okafor",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "WAITER"
+    "position": "WAITER",
+    "email": "samuel.okafor@example.com"
   },
   {
     "id": "bbbbbbbb-0000-0000-0000-000000000020",
     "name": "Tina Larsson",
     "role": "EMPLOYEE",
     "password": "001",
-    "position": "RUNNER"
+    "position": "RUNNER",
+    "email": "tina.larsson@example.com"
   }
 ]
