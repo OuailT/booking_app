@@ -5,7 +5,7 @@ import { prisma } from '../index';
 const router = Router();
 
 const loginSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
+  email: z.email('Invalid email address'),
   password: z.string().min(1, 'Password is required'),
 });
 
@@ -18,10 +18,10 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  const { name, password } = parsed.data;
+  const { email, password } = parsed.data;
 
   const user = await prisma.user.findFirst({
-    where: { name, password },
+    where: { email, password },
     select: { id: true, name: true, role: true },
   });
 
@@ -37,12 +37,11 @@ res.json({
   user,
 });
   // Return user info  on successful login
-  res.json(user); 
   /* 
   "token": "user-id-123",
   "user": {
     "id": "user-id-123",
-    "name": "Admin",
+    "email": "admin@company.com",
     "role": "EMPLOYER"
   }*/
 });

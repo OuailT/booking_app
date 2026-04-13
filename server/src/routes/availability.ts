@@ -7,8 +7,7 @@ import { requireRole } from '../middleware/RequireRole';
 
 const router = Router();
 
-//router.use(authenticate);
-//router.use(requireRole('EMPLOYEE'));
+router.use(authenticate);
 
 router.get('/', async (req: Request, res: Response): Promise<void> => {
   const availabilities = await prisma.availability.findMany({

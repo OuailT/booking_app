@@ -7,7 +7,7 @@ declare global {
     interface Request {
       user?: {
         id: string;
-        name: string;
+        email: string;
         role: 'EMPLOYEE' | 'EMPLOYER';
       };
     }
@@ -26,7 +26,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 
   const user = await prisma.user.findUnique({
     where: { id: token },
-    select: { id: true, name: true, role: true },
+    select: { id: true, email: true, role: true },
   });
 
   if (!user) {

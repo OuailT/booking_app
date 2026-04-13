@@ -12,7 +12,7 @@ router.use(requireRole('EMPLOYER'));
 
 const createEmployeeSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email address'),
+  email: z.email('Invalid email address'),
   password: z.string().min(1, 'Password is required'),
   position: z.enum(['WAITER', 'RUNNER', 'HEAD_WAITER']).default('WAITER'),
 });

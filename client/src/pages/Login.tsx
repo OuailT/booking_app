@@ -3,19 +3,21 @@ import { useNavigate } from "react-router-dom";
 import '../styles/Login.css';
 
 function Login() {
-    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
+      console.log("API URL:", import.meta.env.VITE_API_BASE_URL); // ← add this
+  console.log("Sending:", { email, password });               // ← and this
   try {
     const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name: name, password }),
+      body: JSON.stringify({ email: email, password }),
     });
 
     const data = await res.json();
@@ -30,9 +32,9 @@ function Login() {
 
     // role-based navigation
     if (data.user.role === "EMPLOYER") {
-      navigate("/employeelist");
+      navigate("/employees");
     } else {
-      navigate("/"); // or other employee pages 
+      navigate("/availability");
     }
 
   } catch (error) {
@@ -44,8 +46,8 @@ function Login() {
             <h2>Login</h2>
             <div className="login-form">
                 <form>
-                    <label>Name
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                    <label>Email
+                        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </label>
                     <label>Password
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
