@@ -34,6 +34,13 @@ export interface UpdateAvailabilityPayload {
   }[];
 }
 
+export interface PostAvailabilityPayload {
+  userId: string;
+  date: string;
+  shift: 'MORNING' | 'AFTERNOON' | 'NIGHT';
+  status?: 'AVAILABLE' | 'UNAVAILABLE' | 'PREFERRED_TO_WORK';
+}
+
 export interface Schedule {
   id: string;
   userId: string;
@@ -56,6 +63,15 @@ export interface UpdateSchedulePayload {
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_BASE_URL,
+ 
+  prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   reducerPath: "api",
   // tags for invalidation and refetching
@@ -64,6 +80,8 @@ export const api = createApi({
     "Availability",
     "Schedule",
   ],
+
+  
   endpoints: (build) => ({
     // --- Employees ---
     getEmployees: build.query<Employee[], void>({
@@ -98,7 +116,25 @@ export const api = createApi({
         method: 'PUT',
         body: { availabilities },
       }),
-      invalidatesTags: (_result, _error, { employeeId }) => [{ type: "Availability", id: employeeId }],
+      invalidatesTags: (_result, _error, { employeeId }) => [
+        { type: "Availability", id: employeeId },
+        "Availability"
+      ],
+    }),
+    addAvailability: build.mutation<Availability, PostAvailabilityPayload>({
+      query: (payload) => ({
+        url: `/availability`,
+        method: 'POST',
+        body: payload,
+      }),
+      invalidatesTags: ["Availability"],
+    }),
+    deleteAvailability: build.mutation<void, string>({
+      query: (id) => ({
+        url: `/availability/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ["Availability"],
     }),
 
     // --- Schedule ---
@@ -126,6 +162,8 @@ export const {
   useGetAvailabilitiesQuery,
   useGetAvailabilityByEmployeeIdQuery,
   useUpdateAvailabilityMutation,
+  useAddAvailabilityMutation,
+  useDeleteAvailabilityMutation,
   // Schedule
   useGetSchedulesQuery,
   useUpdateScheduleMutation,

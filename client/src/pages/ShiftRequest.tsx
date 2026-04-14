@@ -1,10 +1,10 @@
-import "./Availabilities.css";
+import "../styles/ShiftRequest.css";
 import { useMemo, useState } from "react";
-import { getWeekDays, formattedDate, addDays, isSameDay, shortMonth } from "../../utils/scheduleDateUtils";
-import {useGetEmployeesQuery, useGetAvailabilitiesQuery} from "../../api";
-import type {Employee, Availability} from "../../api";
+import { getWeekDays, formattedDate, addDays, isSameDay, shortMonth } from "../utils/scheduleDateUtils";
+import {useGetEmployeesQuery, useGetAvailabilitiesQuery} from "../api";
+import type {Employee, Availability} from "../api";
 
-function Availabilities() {
+function ShiftRequest() {
     const { data: employeesData, isLoading: isEmployeesLoading, error: isEmloyeesError } = useGetEmployeesQuery();
     const employees: Employee[] = employeesData as Employee[];
 
@@ -39,8 +39,8 @@ function Availabilities() {
     if (isEmloyeesError || isAvailabilityError) return <p className="error-message">Failed to load data</p>;
 
     return (
-        <div className="availability">
-        <h2 style={{marginLeft: "50px"}}>Availability</h2>
+        <div className="shiftrequest">
+        <h2 style={{marginLeft: "50px"}}>Shift request</h2>
         <div className="week-schedule-button-wrap">
             <button className="today-button" onClick={() => setDateReference(new Date())}>Today</button>
             <div className="week-arrows">
@@ -81,4 +81,4 @@ function Availabilities() {
     );
 }
 
-export default Availabilities;
+export default ShiftRequest;

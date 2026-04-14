@@ -1,24 +1,56 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
-import EmployeeList from "./pages/EmployeeList/EmployeeList";
-import Availabilities from "./pages/Availabilities/Availabilities";
-import MyAvailability from "./pages/MyAvailability/MyAvailability";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import EmployeeList from "./pages/EmployeeList";
+import RequireRole from "./components/RequireRole";
+import MyAvailability from './pages/MyAvailability';
+import Register from './pages/Register';
+import ShiftRequest from './pages/ShiftRequest';
 
 
 function App() {
-  return (
-    <BrowserRouter>
+return (
+<BrowserRouter>
       <Routes>
-        <Route index element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/employeelist" element={<EmployeeList />} />
-        <Route path="/availabilities" element={<Availabilities />} />
-        <Route path="/myavailability" element={<MyAvailability />} />
+        {/* Public route */}
+        <Route path="/login" element={<Login />} />
+
+        {/* EMPLOYER-only protected routes */}
+        <Route
+          element={
+            <RequireRole roles={["EMPLOYER"]}/>
+          }
+        >
+          <Route path="/employees" element={<EmployeeList />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+
+        {/* EMPLOYEE-only protected routes */}
+        <Route
+          element={
+            <RequireRole roles={["EMPLOYEE"]}/>
+          }
+        >
+          <Route path="/availability" element={<MyAvailability />} />
+          {/* TBD */}
+          {/* <Route path="/myapprovedschedule" element={<MyApprovedSchedule />} /> */}
+        </Route>
+
+          {/* Shared routes */}
+        <Route
+          element={<RequireRole roles={["EMPLOYER", "EMPLOYEE"]} />}
+        >
+          {/* TBD */}
+          {/* <Route path="/approvedschedule" element={<ApprovedSchedule />} /> */}
+          <Route path="/shiftrequest" element={<ShiftRequest />} />
+        </Route>
+
+
+        {/* Default fallback */}
+        <Route path="/" element={<Login />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
-
-export default App
+export default App;

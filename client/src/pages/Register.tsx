@@ -1,8 +1,8 @@
-import "./Register.css";
+import "../styles/Register.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {useCreateEmployeeMutation} from "../../api";
-import type {CreateEmployeePayload} from "../../api";
+import {useCreateEmployeeMutation} from "../api";
+import type {CreateEmployeePayload} from "../api";
 
 type Position = "RUNNER" | "WAITER" | "HEAD_WAITER";
 
@@ -39,11 +39,11 @@ function Register() {
             {isSuccess ? (
                 <>
                     <h4>Employee successfully registered</h4>
-                    <button onClick={() => navigate("/employeelist")}>Back to list</button>
+                    <button onClick={() => navigate("/employees")}>Back to list</button>
                 </>
             ) : (
                 <div className="register-form">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <label>
                             Name
                             <input
@@ -84,7 +84,7 @@ function Register() {
                             <option value="HEAD_WAITER">Head waiter</option>
                         </select>
 
-                        <button onClick={handleSubmit}>Submit</button>
+                        <button type="submit">Submit</button>
                     </form>
                 </div>
             )}

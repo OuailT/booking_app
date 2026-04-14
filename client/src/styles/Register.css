@@ -2,6 +2,9 @@
     text-align: left;
     padding: 50px;
 }
+.register h4{
+    margin-top: 100px;
+}
 .register-form{
     display: flex;
     justify-content: center;

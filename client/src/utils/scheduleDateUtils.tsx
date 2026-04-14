@@ -39,3 +39,10 @@ export const formattedDate = new Intl.DateTimeFormat('en-GB', {
 export const shortMonth = new Intl.DateTimeFormat('en-GB', {
   month: 'short',
 });
+
+// Formated date to string YYYY-MM-DD
+export const formattedDateToString = (date: Date) => {
+  const formattedDate = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+
+  return formattedDate;
+}

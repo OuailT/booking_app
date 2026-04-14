@@ -1,15 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import './EmployeeList.css';
-import {useGetEmployeesQuery} from "../../api";
-import type {Employee} from "../../api";
+import '../styles/EmployeeList.css';
+import {useGetEmployeesQuery} from "../api";
+import type {Employee} from "../api";
 
 function EmployeeList() {
     const navigate = useNavigate();
     
     const { data, isLoading, error } = useGetEmployeesQuery();
     const employees: Employee[] = data as Employee[];
-
-    console.log(data)
 
     if (isLoading) return <p className="loading">Loading...</p>;
     if (error) return <p className="error-message">Failed to load data</p>;
