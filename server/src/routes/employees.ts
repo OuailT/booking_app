@@ -1,14 +1,14 @@
 import { Router, Request, Response } from "express";
-import { email, z } from "zod";
+import { z } from "zod";
 import { prisma } from "../index";
 
 const router = Router();
 
 const createEmployeeSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  email: email().min(1, "Email is required"),
+  email: z.string().email("Invalid email address"),
   password: z.string().min(1, "Password is required"),
-  position: z.enum(["WAITER", "RUNNER", "HEAD_WAITER"]),
+  position: z.enum(["WAITER", "RUNNER", "HEAD_WAITER"]).default("WAITER"),
 });
 
 // GET /employees: to get all employees
