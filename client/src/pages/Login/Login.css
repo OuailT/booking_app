@@ -1,0 +1,30 @@
+.login{
+    text-align: left;
+    padding: 50px;
+}
+.login-form{
+    display: flex;
+    justify-content: center;
+    background-color: #ccc;
+    padding: 20px;
+}
+.login-form form{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+.login-form label{
+    width: 120px;
+    color: black;
+}
+.login-form button {
+    width: 100px;
+    margin-top: 50px;
+}
+.login-form a:hover{
+    color: black;
+}
+.login-error-message{
+    height: 40px;
+    color: rgb(250, 30, 30);
+}

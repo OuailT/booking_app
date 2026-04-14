@@ -4,14 +4,15 @@ import { useNavigate } from "react-router-dom";
 import {useCreateEmployeeMutation} from "../../api";
 import type {CreateEmployeePayload} from "../../api";
 
-type Role = "RUNNER" | "WAITER" | "HEAD_WAITER";
+type Position = "RUNNER" | "WAITER" | "HEAD_WAITER";
 
 function Register() {
     const navigate = useNavigate();
 
     const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [position, setPosition] = useState<Role>("WAITER");
+    const [position, setPosition] = useState<Position>("WAITER");
 
     const [createEmployee, { isLoading, isSuccess, error }] = useCreateEmployeeMutation();
 
@@ -19,6 +20,7 @@ function Register() {
         try{
             const payload: CreateEmployeePayload = {
                 name: name,
+                email: email,
                 password: password,
                 position: position,
             };
@@ -30,6 +32,7 @@ function Register() {
 
     if (isLoading) return <p className="loading">Loading...</p>;
     if (error) return <p className="error-message">Failed to register employee</p>;
+    
     return (
         <div className="register">
             <h2>Register new employee</h2>
@@ -51,20 +54,29 @@ function Register() {
                             />
                         </label>
                         <label>
+                            Email
+                            <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            />
+                        </label>
+                        <label>
                             Password
                             <input
-                            type="text"
+                            type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                             />
                         </label>
-                        <label htmlFor="role">Position</label>
+                        <label htmlFor="position">Position</label>
                         <select
-                            id="role"
-                            name="role"
+                            id="position"
+                            name="position"
                             value={position}
-                            onChange={(e) => setPosition(e.target.value as Role)}
+                            onChange={(e) => setPosition(e.target.value as Position)}
                             required
                         >
                             <option value="WAITER">Waiter</option>

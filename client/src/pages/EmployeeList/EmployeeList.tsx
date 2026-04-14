@@ -9,8 +9,11 @@ function EmployeeList() {
     const { data, isLoading, error } = useGetEmployeesQuery();
     const employees: Employee[] = data as Employee[];
 
+    console.log(data)
+
     if (isLoading) return <p className="loading">Loading...</p>;
     if (error) return <p className="error-message">Failed to load data</p>;
+    
     return(
         <div className="employee-list">
             <div className="employee-list-top-bar">

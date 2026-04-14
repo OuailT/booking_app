@@ -1,6 +1,134 @@
 .loading{
   margin-top: 300px;
 }
+
 .error-message{
   margin-top: 300px;
+}
+
+.week-schedule-table{
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 800px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.week-schedule-cell{
+    border: 1px solid #d9d9d9;
+    padding: 10px;
+    height: 70px;
+    width: 120px;
+    background-color: #fff;
+    font-size: 16px;
+}
+
+.week-schedule-button-wrap{
+  padding-left: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.today-button{
+  border: 2px #66ccff solid;
+  border-radius: 5px;
+  color: #66ccff;
+  background-color: white;
+  width: 80px;
+  height: 34px;
+}
+
+.week-arrows{
+  border: 2px solid black;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+  width: 180px;
+  height: 30px;
+  margin-left: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.arrow-left {
+  width: 12px;
+  height: 12px;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: rotate(45deg);
+  position: absolute;
+  left: 15px;
+  top: 7px
+}
+.arrow-left:hover{
+  border-color: #999;
+}
+
+.arrow-right {
+  width: 12px;
+  height: 12px;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: rotate(225deg);
+  position: absolute;
+  right: 15px;
+  top: 7px
+}
+.arrow-right:hover{
+  border-color: #999;
+}
+
+/* Availability status */
+.status-available{
+    color: #2eb82e;
+    max-width: 120px;
+}
+.status-unavailable{
+    background-color: #ff8080;
+    color: #b30000;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+}
+.status-prefer-morning{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    background-color: #e6e600;
+    color: black;
+}
+.status-prefer-afternoon{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    background-color: #80ff80;
+    color: black;
+}
+.status-prefer-night{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    background-color: #4db8ff;
+    color: black;
 }
