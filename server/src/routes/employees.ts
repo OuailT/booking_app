@@ -1,45 +1,60 @@
-import { Router, Request, Response } from 'express';
-import { z } from 'zod';
-import { prisma } from '../index';
-
+import { Router, Request, Response } from "express";
+import { z } from "zod";
+import { prisma } from "../index";
 
 const router = Router();
 
 const createEmployeeSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(1, 'Password is required'),
-  position: z.enum(['WAITER', 'RUNNER', 'HEAD_WAITER']).default('WAITER'),
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(1, "Password is required"),
+  position: z.enum(["WAITER", "RUNNER", "HEAD_WAITER"]).default("WAITER"),
 });
 
 // GET /employees: to get all employees
-router.get('/', async (_req: Request, res: Response): Promise<void> => {
+router.get("/", async (_req: Request, res: Response): Promise<void> => {
   const employees = await prisma.user.findMany({
-    where: { role: 'EMPLOYEE' },
-    select: { id: true, name: true, email: true, role: true, password: true, position: true, availabilities: true },
+    where: { role: "EMPLOYEE" },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      password: true,
+      position: true,
+      availabilities: true,
+    },
   });
   res.json(employees);
 });
 
-router.post('/', async (req: Request, res: Response): Promise<void> => {
+router.post("/", async (req: Request, res: Response): Promise<void> => {
   try {
     const data = createEmployeeSchema.parse(req.body);
     const employee = await prisma.user.create({
-      data: { ...data, role: 'EMPLOYEE' },
+      data: { ...data, role: "EMPLOYEE" },
     });
     res.status(201).json(employee);
   } catch (error) {
-    res.status(400).json({ error: 'Invalid input data' });
+    res.status(400).json({ error: "Invalid input data" });
   }
 });
 
-router.get('/:id', async (req: Request, res: Response): Promise<void> => {
+router.get("/:id", async (req: Request, res: Response): Promise<void> => {
   const employee = await prisma.user.findUnique({
-    where: { id: req.params.id as string, role: 'EMPLOYEE' },
-    select: { id: true, name: true, email: true, role: true, password: true, position: true, availabilities: true },
+    where: { id: req.params.id as string, role: "EMPLOYEE" },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      password: true,
+      position: true,
+      availabilities: true,
+    },
   });
   if (!employee) {
-    res.status(404).json({ error: 'Employee not found' });
+    res.status(404).json({ error: "Employee not found" });
     return;
   }
   res.json(employee);
