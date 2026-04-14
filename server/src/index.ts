@@ -17,8 +17,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Routes
-
-app.use('/employees', employeeRoutes); // Todo: Alen
+app.use('/employees', employeeRoutes);
 app.use('/availability', availabilityRoutes);
 app.use('/schedule', scheduleRoutes);
 
