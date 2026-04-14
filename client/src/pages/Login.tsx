@@ -9,8 +9,6 @@ function Login() {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-      console.log("API URL:", import.meta.env.VITE_API_BASE_URL); // ← add this
-  console.log("Sending:", { email, password });               // ← and this
   try {
     const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/login`, {
       method: "POST",
