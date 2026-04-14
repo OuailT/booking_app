@@ -75,4 +75,52 @@ router.put('/:employeeId', async (req: Request, res: Response): Promise<void> =>
   res.json({ updated: results.length, availabilities: results });
 });
 
+// POST /availability
+router.post('/', async (req: Request, res: Response): Promise<void> => {
+  const singleSchema = z.object({
+    userId: z.string(),
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format'),
+    shift: z.enum(['MORNING', 'AFTERNOON', 'NIGHT']),
+    status: z.enum(['AVAILABLE', 'UNAVAILABLE', 'PREFERRED_TO_WORK']).optional().default('AVAILABLE'),
+  });
+
+  const parsed = singleSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ error: parsed.error.flatten() });
+    return;
+  }
+
+  try {
+    const availability = await prisma.availability.create({
+      data: {
+        userId: parsed.data.userId,
+        date: new Date(parsed.data.date),
+        shift: parsed.data.shift,
+        status: parsed.data.status,
+      },
+    });
+    res.status(201).json(availability);
+  } catch (error: any) {
+    if (error.code === 'P2002') {
+      res.status(409).json({ error: 'Availability already exists for this user, date and shift.' });
+    } else {
+      res.status(500).json({ error: 'Failed to create availability' });
+    }
+  }
+});
+
+// DELETE /availability/:id
+router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+
+  try {
+    await prisma.availability.delete({
+      where: { id: id as string },
+    });
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete availability or record not found' });
+  }
+});
+
 export default router;

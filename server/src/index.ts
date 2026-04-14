@@ -18,7 +18,6 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Routes
-
 app.use('/auth', authRoutes);
 app.use('/employees', employeeRoutes);
 app.use('/availability', availabilityRoutes);
