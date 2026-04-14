@@ -33,6 +33,13 @@ export interface UpdateAvailabilityPayload {
   }[];
 }
 
+export interface PostAvailabilityPayload {
+  userId: string;
+  date: string;
+  shift: 'MORNING' | 'AFTERNOON' | 'NIGHT';
+  status?: 'AVAILABLE' | 'UNAVAILABLE' | 'PREFERRED_TO_WORK';
+}
+
 export interface Schedule {
   id: string;
   userId: string;
@@ -108,7 +115,25 @@ export const api = createApi({
         method: 'PUT',
         body: { availabilities },
       }),
-      invalidatesTags: (_result, _error, { employeeId }) => [{ type: "Availability", id: employeeId }],
+      invalidatesTags: (_result, _error, { employeeId }) => [
+        { type: "Availability", id: employeeId },
+        "Availability"
+      ],
+    }),
+    addAvailability: build.mutation<Availability, PostAvailabilityPayload>({
+      query: (payload) => ({
+        url: `/availability`,
+        method: 'POST',
+        body: payload,
+      }),
+      invalidatesTags: ["Availability"],
+    }),
+    deleteAvailability: build.mutation<void, string>({
+      query: (id) => ({
+        url: `/availability/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ["Availability"],
     }),
 
     // --- Schedule ---
@@ -136,6 +161,8 @@ export const {
   useGetAvailabilitiesQuery,
   useGetAvailabilityByEmployeeIdQuery,
   useUpdateAvailabilityMutation,
+  useAddAvailabilityMutation,
+  useDeleteAvailabilityMutation,
   // Schedule
   useGetSchedulesQuery,
   useUpdateScheduleMutation,
