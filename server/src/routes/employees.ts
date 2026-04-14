@@ -1,14 +1,19 @@
-import { Router, Request, Response } from "express";
-import { z } from "zod";
-import { prisma } from "../index";
+import { Router, Request, Response } from 'express';
+import { z } from 'zod';
+import { prisma } from '../index';
+import { authenticate} from '../middleware/Authenticate';
+import { requireRole } from '../middleware/RequireRole';
 
 const router = Router();
 
+router.use(authenticate);
+router.use(requireRole('EMPLOYER'));
+
 const createEmployeeSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
-  position: z.enum(["WAITER", "RUNNER", "HEAD_WAITER"]).default("WAITER"),
+  name: z.string().min(1, 'Name is required'),
+  email: z.email('Invalid email address'),
+  password: z.string().min(1, 'Password is required'),
+  position: z.enum(['WAITER', 'RUNNER', 'HEAD_WAITER']),
 });
 
 // GET /employees: to get all employees
