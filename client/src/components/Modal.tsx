@@ -54,7 +54,7 @@ function Modal({setIsModal, userId, selectedDate}: ModalProps) {
     );
   }
 
-  const handleConrifm = async () => {
+  const handleConfirm = async () => {
     try{
         if(selectedElement == "AVAILABLE-ALL-DAY"){
           await availableAllDay();
@@ -118,7 +118,7 @@ function Modal({setIsModal, userId, selectedDate}: ModalProps) {
 
         <div className="modal__actions">
           <button className="action-btn action-btn--cancel" onClick={() => setIsModal(false)}>Cancel</button>
-          <button className="action-btn action-btn--confirm" onClick={handleConrifm}>Confirm</button>
+          <button className="action-btn action-btn--confirm" onClick={handleConfirm}>Confirm</button>
         </div>
 
       </div>
