@@ -1,0 +1,45 @@
+.navbar {
+  width: 100%;
+  padding: 16px 24px;
+  background: transparent;
+  display: flex;
+  justify-content:flex-end;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  font-size: 18px;
+  transition: opacity 0.2s ease;
+}
+
+.nav-list li a:hover {
+  opacity: 0.6;
+}
+
+.logout-button {
+  background: #2c75d4;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.logout-button:hover {
+  opacity: 0.6;
+}

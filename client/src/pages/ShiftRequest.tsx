@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { getWeekDays, formattedDate, addDays, isSameDay, shortMonth } from "../utils/scheduleDateUtils";
 import {useGetEmployeesQuery, useGetAvailabilitiesQuery} from "../api";
 import type {Employee, Availability} from "../api";
+import Navbar from "../components/Navbar";
 
 function ShiftRequest() {
     const { data: employeesData, isLoading: isEmployeesLoading, error: isEmloyeesError } = useGetEmployeesQuery();
@@ -40,6 +41,7 @@ function ShiftRequest() {
 
     return (
         <div className="shiftrequest">
+        <Navbar role="EMPLOYER" />
         <h2 style={{marginLeft: "50px"}}>Shift request</h2>
         <div className="week-schedule-button-wrap">
             <button className="today-button" onClick={() => setDateReference(new Date())}>Today</button>

@@ -1,8 +1,6 @@
-.employee-list{
-    margin-top: 80px;
-}
 .employee-list-top-bar {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
@@ -11,7 +9,7 @@
 .employee-list-top-bar h1 {
     font-size: 28px;
     font-weight: bold;
-    color: #222;
+    color: #222;   
 }
 .employee-list-top-bar button {
     background: #8bc34a;
@@ -21,6 +19,8 @@
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    margin-right: auto;
+    margin-left: 20px;
 }
 .employee-list-top-bar button:hover{
     background-color: #b5d98c;
@@ -30,7 +30,7 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 200px));
     gap: 16px;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .employee-card {
     width: 100%;
