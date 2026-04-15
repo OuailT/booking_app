@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface CreateEmployeePayload {
   name: string;
+  email: string;
   password: string;
   position: 'WAITER' | 'RUNNER' | 'HEAD_WAITER';
 }

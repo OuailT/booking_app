@@ -1,27 +1,24 @@
-.login{
+.register{
     text-align: left;
     padding: 50px;
 }
-.login-form{
+.register h4{
+    margin-top: 100px;
+}
+.register-form{
     display: flex;
     justify-content: center;
     background-color: #ccc;
     padding: 20px;
+    text-align: left;
+    color: black;
 }
-.login-form form{
-    width: 400px;
+.register-form form{
+    width: 200px;
     display: flex;
     flex-direction: column;
 }
-.login-form label{
-    width: 120px;
-    color: black;
-}
-.login-form button {
+.register-form button {
     width: 100px;
     margin-top: 50px;
-}
-.login-error-message{
-    height: 40px;
-    color: rgb(250, 30, 30);
 }

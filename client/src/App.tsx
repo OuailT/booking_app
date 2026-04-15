@@ -1,19 +1,14 @@
 import './App.css';
-//import {useGetEmployeesQuery} from "./api";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import EmployeeList from "./pages/EmployeeList";
 import RequireRole from "./components/RequireRole";
-import ApprovedSchedule from './pages/ApprovedSchedule';
 import MyAvailability from './pages/MyAvailability';
 import Register from './pages/Register';
 import ShiftRequest from './pages/ShiftRequest';
 
 
-function App() { // This belongs to EmployeeList.tsx, not here. ???
-  //const { data: employees, isLoading, error } = useGetEmployeesQuery();
-  // displayed all the employees from the database into the console browser.
-  //console.log(employees);   
+function App() {
 return (
 <BrowserRouter>
       <Routes>
@@ -37,13 +32,16 @@ return (
           }
         >
           <Route path="/availability" element={<MyAvailability />} />
+          {/* TBD */}
+          {/* <Route path="/myapprovedschedule" element={<MyApprovedSchedule />} /> */}
         </Route>
 
           {/* Shared routes */}
         <Route
           element={<RequireRole roles={["EMPLOYER", "EMPLOYEE"]} />}
         >
-          <Route path="/schedule" element={<ApprovedSchedule />} />
+          {/* TBD */}
+          {/* <Route path="/approvedschedule" element={<ApprovedSchedule />} /> */}
           <Route path="/shiftrequest" element={<ShiftRequest />} />
         </Route>
 
