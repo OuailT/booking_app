@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {useCreateEmployeeMutation} from "../api";
 import type {CreateEmployeePayload} from "../api";
+import Navbar from "../components/Navbar";
 
 type Position = "RUNNER" | "WAITER" | "HEAD_WAITER";
 
@@ -35,6 +36,7 @@ function Register() {
     
     return (
         <div className="register">
+            <Navbar role="EMPLOYER" />
             <h2>Register new employee</h2>
             {isSuccess ? (
                 <>
