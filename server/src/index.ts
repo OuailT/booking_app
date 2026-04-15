@@ -2,12 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import { PrismaClient } from '../generated/prisma';
-
-
 import authRoutes from './routes/auth';
 import employeeRoutes from './routes/employees';
 import availabilityRoutes from './routes/availability';
 import scheduleRoutes from './routes/schedule';
+import logger from './utils/logger';
 
 export const prisma = new PrismaClient();
 
@@ -26,5 +25,5 @@ app.use('/schedule', scheduleRoutes);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.info(`Server running on port ${PORT}`);
 });

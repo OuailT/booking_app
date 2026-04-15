@@ -6,6 +6,8 @@ import RequireRole from "./components/RequireRole";
 import MyAvailability from './pages/MyAvailability';
 import Register from './pages/Register';
 import ShiftRequest from './pages/ShiftRequest';
+import ApprovedSchedule from './pages/ApprovedSchedule';
+import MyApprovedSchedule from './pages/MyApprovedSchedule';
 
 
 function App() {
@@ -33,7 +35,7 @@ return (
         >
           <Route path="/availability" element={<MyAvailability />} />
           {/* TBD */}
-          {/* <Route path="/myapprovedschedule" element={<MyApprovedSchedule />} /> */}
+          <Route path="/myapprovedschedule" element={<MyApprovedSchedule />} />
         </Route>
 
           {/* Shared routes */}
@@ -41,7 +43,7 @@ return (
           element={<RequireRole roles={["EMPLOYER", "EMPLOYEE"]} />}
         >
           {/* TBD */}
-          {/* <Route path="/approvedschedule" element={<ApprovedSchedule />} /> */}
+          <Route path="/approvedschedule" element={<ApprovedSchedule />} />
           <Route path="/shiftrequest" element={<ShiftRequest />} />
         </Route>
 
