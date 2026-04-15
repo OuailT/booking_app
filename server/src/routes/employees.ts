@@ -7,7 +7,7 @@ import { requireRole } from '../middleware/RequireRole';
 const router = Router();
 
 router.use(authenticate);
-router.use(requireRole('EMPLOYER'));
+//router.use(requireRole('EMPLOYER')); TBD
 
 const createEmployeeSchema = z.object({
   name: z.string().min(1, 'Name is required'),
