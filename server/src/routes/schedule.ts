@@ -1,20 +1,23 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { prisma } from '../index';
 import { authenticate } from '../middleware/Authenticate';
 import { requireRole } from '../middleware/RequireRole';
-
+import { AppError } from '../errors/AppError';
 
 const router = Router();
-
 router.use(authenticate);//every request requires a valid token
 
-router.get('/', async (req: Request, res: Response): Promise<void> => {
-  const schedules = await prisma.schedule.findMany({
-    include: { user: { select: { id: true, name: true, email: true } } },
-    orderBy: [{ date: 'asc' }, { shift: 'asc' }],
-  });
-  res.json(schedules);
+router.get('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const schedules = await prisma.schedule.findMany({
+      include: { user: { select: { id: true, name: true, email: true } } },
+      orderBy: [{ date: 'asc' }, { shift: 'asc' }],
+    });
+    res.json(schedules);
+  } catch (error) {
+    next(error);
+  }
 });
 
 const scheduleSchema = z.object({
@@ -28,13 +31,15 @@ const scheduleSchema = z.object({
 });
 
 // PUT /schedule
-router.put('/',requireRole('EMPLOYER'), async (req: Request, res: Response): Promise<void> => {
+router.put('/',requireRole('EMPLOYER'), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try{
   const parsed = scheduleSchema.safeParse(req.body);
   if (!parsed.success) {
-    res.status(400).json({ error: z.treeifyError(parsed.error) });
-    return;
-  }
-
+   return next(new AppError(
+        parsed.error.issues.map((e: z.core.$ZodIssue) => e.message).join(', '),
+        400
+      ));
+    }
   const { assignments } = parsed.data;
 
   // Verify all employees exist
@@ -45,8 +50,7 @@ router.put('/',requireRole('EMPLOYER'), async (req: Request, res: Response): Pro
   });
 
   if (users.length !== userIds.length) {
-    res.status(400).json({ error: 'One or more user IDs are invalid or not employees' });
-    return;
+    return next(new AppError('One or more user IDs are invalid or not employees', 400));
   }
 
   const results = await Promise.all(
@@ -60,16 +64,15 @@ router.put('/',requireRole('EMPLOYER'), async (req: Request, res: Response): Pro
           },
         },
         update: {},
-        create: {
-          userId,
-          date: new Date(date),
-          shift,
-        },
+        create: { userId, date: new Date(date), shift },
       })
     )
   );
 
-  res.json({ assigned: results.length, schedules: results });
+ res.json({ assigned: results.length, schedules: results });
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default router;
