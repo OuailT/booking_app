@@ -1,99 +1,95 @@
 import "../styles/Register.css";
-import { useState, useRef } from "react";
-import type { Role } from "../types";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {useCreateEmployeeMutation} from "../api";
+import type {CreateEmployeePayload} from "../api";
+
+type Position = "RUNNER" | "WAITER" | "HEAD_WAITER";
 
 function Register() {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [loginCode, setLoginCode] = useState<string>("");
-  const [role, setRole] = useState<Role>("waiter");
-  const [photo, setPhoto] = useState<File | null>(null);
-  const photoInputRef = useRef<HTMLInputElement | null>(null);
+    const navigate = useNavigate();
 
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setPhoto(e.target.files[0]);
-    }
-  };
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [position, setPosition] = useState<Position>("WAITER");
 
-  const choosePhoto = () => {
-    photoInputRef.current?.click();
-  };
+    const [createEmployee, { isLoading, isSuccess, error }] = useCreateEmployeeMutation();
 
-  const handleSubmit = () => {
-    // send data to backend
-  };
+    const handleSubmit = () => {
+        try{
+            const payload: CreateEmployeePayload = {
+                name: name,
+                email: email,
+                password: password,
+                position: position,
+            };
+            createEmployee(payload);
+        } catch(err) {
+            console.log("Failed to register employee ", err)
+        }
+    };
 
-  return (
-    <div className="register">
-      <h2>Register new employee</h2>
-      <div className="login-form">
-        <form>
-          <label>
-            First name
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Last name
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Email
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Login code
-            <input
-              type="text"
-              value={loginCode}
-              onChange={(e) => setLoginCode(e.target.value)}
-              required
-            />
-          </label>
-          <label htmlFor="role">Role</label>
-          <select
-            id="role"
-            name="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value as Role)}
-            required
-          >
-            <option value="waiter">Waiter</option>
-            <option value="runner">Runner</option>
-            <option value="head-waiter">Head waiter</option>
-          </select>
-          <label htmlFor="photo">Upload photo</label>
-          <div className="employee-photo" onClick={choosePhoto}>
-            {photo && <img src={URL.createObjectURL(photo)} alt="preview" />}
-          </div>
-          <input
-            style={{ visibility: "hidden" }}
-            type="file"
-            onChange={handlePhotoChange}
-            ref={photoInputRef}
-          />
+    if (isLoading) return <p className="loading">Loading...</p>;
+    if (error) return <p className="error-message">Failed to register employee</p>;
+    
+    return (
+        <div className="register">
+            <h2>Register new employee</h2>
+            {isSuccess ? (
+                <>
+                    <h4>Employee successfully registered</h4>
+                    <button onClick={() => navigate("/employees")}>Back to list</button>
+                </>
+            ) : (
+                <div className="register-form">
+                    <form onSubmit={handleSubmit}>
+                        <label>
+                            Name
+                            <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            />
+                        </label>
+                        <label>
+                            Email
+                            <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            />
+                        </label>
+                        <label>
+                            Password
+                            <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            />
+                        </label>
+                        <label htmlFor="position">Position</label>
+                        <select
+                            id="position"
+                            name="position"
+                            value={position}
+                            onChange={(e) => setPosition(e.target.value as Position)}
+                            required
+                        >
+                            <option value="WAITER">Waiter</option>
+                            <option value="RUNNER">Runner</option>
+                            <option value="HEAD_WAITER">Head waiter</option>
+                        </select>
 
-          <button onClick={handleSubmit}>Submit</button>
-        </form>
-      </div>
-    </div>
-  );
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default Register;
