@@ -18,6 +18,7 @@ export interface Availability {
   date: string;
   shift: 'MORNING' | 'AFTERNOON' | 'NIGHT';
   status: 'AVAILABLE' | 'UNAVAILABLE' | 'PREFERRED_TO_WORK';
+  approvalStatus: 'PENDING' | 'CONFIRMED' | 'REFUSED';
   user?: {
     id: string;
     name: string;
@@ -124,6 +125,14 @@ export const api = createApi({
       }),
       invalidatesTags: ["Availability"],
     }),
+    updateAvailabilityApproval: build.mutation<Availability, { id: string, approvalStatus: 'CONFIRMED' | 'REFUSED' | 'PENDING' }>({
+      query: ({ id, approvalStatus }) => ({
+        url: `/availability/${id}/approval`,
+        method: 'PATCH',
+        body: { approvalStatus },
+      }),
+      invalidatesTags: ["Availability"],
+    }),
 
     // --- Schedule ---
     getSchedules: build.query<Schedule[], void>({
@@ -152,6 +161,7 @@ export const {
   useUpdateAvailabilityMutation,
   useAddAvailabilityMutation,
   useDeleteAvailabilityMutation,
+  useUpdateAvailabilityApprovalMutation,
   // Schedule
   useGetSchedulesQuery,
   useUpdateScheduleMutation,

@@ -57,12 +57,13 @@ router.put('/:employeeId', async (req: Request, res: Response): Promise<void> =>
             shift,
           },
         },
-        update: { status },
+        update: { status, approvalStatus: 'PENDING' },
         create: {
           userId: employeeId as string,
           date: new Date(date),
           shift,
           status,
+          approvalStatus: 'PENDING',
         },
       })
     )
@@ -93,6 +94,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
         date: new Date(parsed.data.date),
         shift: parsed.data.shift,
         status: parsed.data.status,
+        approvalStatus: 'PENDING',
       },
     });
     res.status(201).json(availability);
@@ -116,6 +118,27 @@ router.delete('/:id', async (req: Request, res: Response): Promise<void> => {
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete availability or record not found' });
+  }
+});
+
+// PATCH /availability/:id/approval
+router.patch('/:id/approval', async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const { approvalStatus } = req.body;
+
+  if (!['CONFIRMED', 'REFUSED', 'PENDING'].includes(approvalStatus)) {
+    res.status(400).json({ error: 'Invalid approval status' });
+    return;
+  }
+
+  try {
+    const updated = await prisma.availability.update({
+      where: { id: id as string },
+      data: { approvalStatus: approvalStatus as any },
+    });
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update approval status' });
   }
 });
 

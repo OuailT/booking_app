@@ -34,6 +34,12 @@ enum Position {
   HEAD_WAITER
 }
 
+enum ApprovalStatus {
+  PENDING
+  CONFIRMED
+  REFUSED
+}
+
 model User {
   id        String   @id @default(uuid())
   name      String
@@ -48,12 +54,13 @@ model User {
 }
 
 model Availability {
-  id        String             @id @default(uuid())
-  date      DateTime           @db.Date
-  shift     Shift
-  status    AvailabilityStatus @default(AVAILABLE)
-  user      User               @relation(fields: [userId], references: [id])
-  userId    String
+  id              String             @id @default(uuid())
+  date            DateTime           @db.Date
+  shift           Shift
+  status          AvailabilityStatus @default(AVAILABLE)
+  approvalStatus  ApprovalStatus     @default(PENDING)
+  user            User               @relation(fields: [userId], references: [id])
+  userId          String
   @@unique([userId, date, shift])
 } 
 
