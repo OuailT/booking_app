@@ -5,6 +5,7 @@ import { getWeekDays, formattedDate, addDays, isSameDay, shortMonth } from "../u
 import { useGetAvailabilityByEmployeeIdQuery } from "../api";
 import type { Availability } from "../api";
 import Modal from "../components/Modal";
+import Navbar from "../components/Navbar";
 
 type ShiftRow = {
   name: string;
@@ -63,7 +64,9 @@ function MyAvailability() {
   if (isAvailabilityError) return <p className="error-message">Failed to load data</p>;
   
   return (
+    
     <div className="my-availability">
+      <Navbar role="EMPLOYEE" />
       <h2 style={{marginLeft: "50px"}}>{employeeName}'s availability</h2>
       <div className="week-schedule-button-wrap">
                   <button className="today-button" onClick={() => setDateReference(new Date())}>Today</button>

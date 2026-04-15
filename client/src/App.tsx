@@ -23,6 +23,7 @@ return (
         >
           <Route path="/employees" element={<EmployeeList />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/shiftrequest" element={<ShiftRequest />} />
         </Route>
 
         {/* EMPLOYEE-only protected routes */}
@@ -40,9 +41,8 @@ return (
         <Route
           element={<RequireRole roles={["EMPLOYER", "EMPLOYEE"]} />}
         >
-          {/* TBD */}
+          {/* TBD  */}{/*Maybe we can name this one just schedule? */}
           {/* <Route path="/approvedschedule" element={<ApprovedSchedule />} /> */}
-          <Route path="/shiftrequest" element={<ShiftRequest />} />
         </Route>
 
 
