@@ -35,9 +35,7 @@ function Login() {
         if (data.user.role === "EMPLOYER") {
           navigate("/employees");
         } else if (data.user.role === "EMPLOYEE") {
-          navigate("/availability", {
-            state: { id: data.user.id, employeename: data.user.name  }
-        });
+          navigate("/availability");
         }
 
       } catch (error) {

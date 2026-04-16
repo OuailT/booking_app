@@ -6,7 +6,7 @@ import authRoutes from './routes/auth';
 import employeeRoutes from './routes/employees';
 import availabilityRoutes from './routes/availability';
 import scheduleRoutes from './routes/schedule';
-import logger from './utils/logger';
+import { errorHandler } from './middleware/errorHandler';
 
 export const prisma = new PrismaClient();
 
@@ -22,8 +22,10 @@ app.use('/employees', employeeRoutes);
 app.use('/availability', availabilityRoutes);
 app.use('/schedule', scheduleRoutes);
 
+app.use(errorHandler); //must be last, after all routes
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  logger.info(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

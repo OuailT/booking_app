@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import '../styles/EmployeeList.css';
 import {useGetEmployeesQuery} from "../api";
 import type {Employee} from "../api";
+import Navbar from "../components/Navbar";
 
 function EmployeeList() {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ function EmployeeList() {
     
     return(
         <div className="employee-list">
+            <Navbar role="EMPLOYER" />
             <div className="employee-list-top-bar">
                 <h2>List of all employees</h2>
                 <button onClick={() => navigate("/register")}>Register new employee</button>

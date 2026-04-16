@@ -1,6 +1,7 @@
-import { Router, Request, Response, response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { prisma } from '../index';
+import { AppError } from '../errors/AppError';
 
 const router = Router();
 
@@ -10,13 +11,16 @@ const loginSchema = z.object({
 });
 
 
-router.post('/login', async (req: Request, res: Response): Promise<void> => {
+router.post('/login', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try{
   const parsed = loginSchema.safeParse(req.body);// Validate request body against the schema
   if (!parsed.success) {
     // If validation fails, return bad request with error details
-    res.status(400).json({ error: z.treeifyError(parsed.error) });
-    return;
-  }
+   return next(new AppError(
+        parsed.error.issues.map((e: z.core.$ZodIssue) => e.message).join(', '),
+        400
+      ));
+    }
 
   const { email, password } = parsed.data;
 
@@ -25,16 +29,15 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
     select: { id: true, name: true, role: true },
   });
 
-  if (!user) {
-    res.status(401).json({ message: 'Invalid credentials' });
-    return;
+   if (!user) {
+      return next(new AppError('Invalid credentials', 401));
+    }
+
+  const token = user.id; //Simple token using user Id
+  res.json({ token, user });
+  } catch (error) {
+    next(error);
   }
-
-   const token = user.id; //Simple token using user Id
-
-res.json({
-  token,
-  user,
 });
   // Return user info  on successful login
   /* 
@@ -44,6 +47,5 @@ res.json({
     "email": "admin@company.com",
     "role": "EMPLOYER"
   }*/
-});
 
 export default router;

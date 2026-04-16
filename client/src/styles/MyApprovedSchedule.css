@@ -2,3 +2,17 @@
     text-align: left;
     margin-top: 50px;
 }
+.myappruvedschedule-status-pending{
+    color: #00b300;
+    width: 100%;
+}
+.myappruvedschedule-status-confirmed{
+    color: #4d88ff;
+    width: 100%;
+    font-weight: bold;
+}
+.myappruvedschedule-status-refused{
+    color: #e60000;
+    width: 100%;
+    font-weight: bold;
+}

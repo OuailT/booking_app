@@ -1,10 +1,10 @@
 import "../styles/MyAvailability.css";
 import { useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { getWeekDays, formattedDate, addDays, isSameDay, shortMonth } from "../utils/scheduleDateUtils";
 import { useGetAvailabilityByEmployeeIdQuery } from "../api";
 import type { Availability } from "../api";
 import Modal from "../components/Modal";
+import Navbar from "../components/Navbar";
 
 type ShiftRow = {
   name: string;
@@ -12,12 +12,15 @@ type ShiftRow = {
 };
 
 function MyAvailability() {
-  const location = useLocation();
-  const locationId = location.state?.id;
+    let userId;
+    let employeeName;
+    const stored = localStorage.getItem("user");
 
-  const userId = locationId;
-
-  const employeeName = location.state?.employeename;
+    if (stored) {
+        const user = JSON.parse(stored);
+        userId = user.id;
+        employeeName = user.name;
+    }
 
   const { data: availabilityData, isLoading: isAvailabilityLoading, error: isAvailabilityError } = useGetAvailabilityByEmployeeIdQuery(userId);
   const availability = availabilityData as Availability[] | undefined;
@@ -63,7 +66,9 @@ function MyAvailability() {
   if (isAvailabilityError) return <p className="error-message">Failed to load data</p>;
   
   return (
+    
     <div className="my-availability">
+      <Navbar role="EMPLOYEE" />
       <h2 style={{marginLeft: "50px"}}>{employeeName}'s availability</h2>
       <div className="week-schedule-button-wrap">
                   <button className="today-button" onClick={() => setDateReference(new Date())}>Today</button>

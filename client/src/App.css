@@ -14,6 +14,10 @@
     margin-top: 20px;
 }
 
+.week-schedule-table tr{
+  height: 120px;
+}
+
 .week-schedule-cell{
     border: 1px solid #d9d9d9;
     padding: 10px;
