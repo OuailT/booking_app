@@ -59,7 +59,7 @@ function ApprovedSchedule(){
     }
 
     const approvedEmployee = (shiftValue: string, date: Date) => {
-        const items = approvedData!.filter(a => a.shift == shiftValue && isSameDay(new Date(a.date), date));
+        const items = approvedData!.filter(a => a.shift == shiftValue && isSameDay(new Date(a.date), date) && a.status != "UNAVAILABLE");
         if (!items) return null;
         if (items.length == 0) return null;
 
@@ -91,8 +91,8 @@ function ApprovedSchedule(){
 
             if(isSuccessUpdate){
                 console.log('Approved successfully');
-                setIsModal(false);
             }
+            setIsModal(false);
         } catch (error) {
             console.error('Error approving:', error);
         }

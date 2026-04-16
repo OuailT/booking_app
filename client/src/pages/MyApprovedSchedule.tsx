@@ -40,7 +40,7 @@ function MyApprovedSchedule(){
     }
 
     const status = (shiftValue: string, date: Date) => {
-        const item = scheduleData!.find(a => a.shift == shiftValue && isSameDay(new Date(a.date), date));
+        const item = scheduleData!.find(a => a.shift == shiftValue && isSameDay(new Date(a.date), date) && a.status != "UNAVAILABLE");
         if (!item) return null;
 
         if (item.approvalStatus == "PENDING") return <div className="myappruvedschedule-status-pending">{shiftTime(shiftValue)}</div>
@@ -90,6 +90,20 @@ function MyApprovedSchedule(){
                     ))}
                 </tbody>
             </table>
+            <div className="approved-status-colors">
+                <div className="color-status">
+                    <div className="color-status-pending"></div>
+                    <div>Pending</div>
+                </div>
+                <div className="color-status">
+                    <div className="color-status-confirmed"></div>
+                    <div>Confirmed</div>
+                </div>
+                <div className="color-status">
+                    <div className="color-status-refused"></div>
+                    <div>Refused</div>
+                </div>
+            </div>
         </div>
     )
 }
