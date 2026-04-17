@@ -40,7 +40,7 @@ export const shortMonth = new Intl.DateTimeFormat('en-GB', {
   month: 'short',
 });
 
-export const formattedYear = new Intl.DateTimeFormat('en-GB', {
+export const onlyYear = new Intl.DateTimeFormat('en-GB', {
   year: 'numeric',
 });
 

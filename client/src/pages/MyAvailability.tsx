@@ -1,6 +1,6 @@
 import "../styles/MyAvailability.css";
 import { useMemo, useState } from "react";
-import { getWeekDays, formattedDate, addDays, isSameDay, shortMonth, formattedYear } from "../utils/scheduleDateUtils";
+import { getWeekDays, formattedDate, addDays, isSameDay, shortMonth, onlyYear } from "../utils/scheduleDateUtils";
 import { useGetAvailabilityByEmployeeIdQuery } from "../api";
 import type { Availability } from "../api";
 import Modal from "../components/Modal";
@@ -75,7 +75,7 @@ function MyAvailability() {
           <div className="week-arrows">
               <div className="arrow-left" onClick={() => setDateReference(addDays(dateReference, -7))}></div>
               <div className="arrow-right" onClick={() => setDateReference(addDays(dateReference, +7))}></div>
-              {shortMonth.format((days[3]))} {days[0].getDate()}-{days[days.length-1].getDate()} {formattedYear.format(days[0])}
+              {shortMonth.format((days[3]))} {days[0].getDate()}-{days[days.length-1].getDate()} {onlyYear.format(days[0])}
               
           </div>
       </div>
