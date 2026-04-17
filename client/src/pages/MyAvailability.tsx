@@ -49,14 +49,14 @@ function MyAvailability() {
       if (item.status == "UNAVAILABLE") return <div className="status-unavailable">Unavailable</div>
       if (item.status == "PREFERRED_TO_WORK"){
           if (item.shift == "MORNING"){
-              return <div className="status-prefer-morning">Prefers to work 7-15</div>
+              return <div className="status-prefer">Prefers to work <div style={{color: "#e64d00"}}>7-15</div></div>
           }
           if (item.shift == "AFTERNOON"){
-              return <div className="status-prefer-afternoon">Prefers to work 15-18</div>
+              return <div className="status-prefer">Prefers to work <div style={{color: "#0039e6"}}>15-18</div></div>
           }
           if (item.shift == "NIGHT"){
               return(
-                  <div className="status-prefer-night">Prefers to work 18-23</div>
+                  <div className="status-prefer">Prefers to work <div style={{color: "#993333"}}>18-23</div></div>
               ) 
           }
       }

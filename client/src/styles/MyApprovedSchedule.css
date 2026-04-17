@@ -5,6 +5,7 @@
 .myappruvedschedule-status-pending{
     color: #ffa500;
     width: 100%;
+    font-weight: bold;
 }
 .myappruvedschedule-status-confirmed{
     color: #00b300;
@@ -21,7 +22,7 @@
     min-width: 400;
     height: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1em;
     margin-top: 50px;
     margin-left: 50px;
