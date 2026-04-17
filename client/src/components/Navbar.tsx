@@ -25,17 +25,17 @@ const Navbar: React.FC<NavbarProps> = ({ role }) => {
             <li><a href="/employees">Employee list</a></li>
             <li><a href="/register">Register employee</a></li>
             <li><a href="/shiftrequest">Shift requests</a></li>
-
+            <li><a href="/approvedschedule">Approved Schedule</a></li>
           </>
         )}
 
         {role === "EMPLOYEE" && (
-          <li><a href="/availability">My Availability</a></li>
-          //<li><a href="/myapprovedschedule">My Approved Schedule</a></li>
+          <>
+            <li><a href="/availability">My Availability</a></li>
+            <li><a href="/myapprovedschedule">My Approved Schedule</a></li>
+          </>
         )}
-
-        {/* Shared */}
-        {/*<li><a href="/approvedschedule">Approved Schedule</a></li>*/}
+        
         <li><button onClick={handleLogout} className="logout-button">Log out</button></li>
       </ul>
     </nav>

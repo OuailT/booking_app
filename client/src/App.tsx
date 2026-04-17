@@ -6,6 +6,8 @@ import RequireRole from "./components/RequireRole";
 import MyAvailability from './pages/MyAvailability';
 import Register from './pages/Register';
 import ShiftRequest from './pages/ShiftRequest';
+import ApprovedSchedule from './pages/ApprovedSchedule';
+import MyApprovedSchedule from './pages/MyApprovedSchedule';
 
 
 function App() {
@@ -24,6 +26,7 @@ return (
           <Route path="/employees" element={<EmployeeList />} />
           <Route path="/register" element={<Register />} />
           <Route path="/shiftrequest" element={<ShiftRequest />} />
+          <Route path="/approvedschedule" element={<ApprovedSchedule />} />
         </Route>
 
         {/* EMPLOYEE-only protected routes */}
@@ -34,15 +37,14 @@ return (
         >
           <Route path="/availability" element={<MyAvailability />} />
           {/* TBD */}
-          {/* <Route path="/myapprovedschedule" element={<MyApprovedSchedule />} /> */}
+          <Route path="/myapprovedschedule" element={<MyApprovedSchedule />} />
         </Route>
 
           {/* Shared routes */}
         <Route
           element={<RequireRole roles={["EMPLOYER", "EMPLOYEE"]} />}
         >
-          {/* TBD  */}{/*Maybe we can name this one just schedule? */}
-          {/* <Route path="/approvedschedule" element={<ApprovedSchedule />} /> */}
+          <Route path="/shiftrequest" element={<ShiftRequest />} />
         </Route>
 
 

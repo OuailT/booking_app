@@ -1,0 +1,52 @@
+.my-approved-schedule{
+    text-align: left;
+    margin-top: 50px;
+}
+.myappruvedschedule-status-pending{
+    color: #ffa500;
+    width: 100%;
+    font-weight: bold;
+}
+.myappruvedschedule-status-confirmed{
+    color: #00b300;
+    width: 100%;
+    font-weight: bold;
+}
+.myappruvedschedule-status-refused{
+    color: #e60000;
+    width: 100%;
+    font-weight: bold;
+}
+.approved-status-colors{
+    width: 100%;
+    min-width: 400;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+.color-status{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+.color-status-pending{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #ffa500;
+}
+.color-status-confirmed{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #00b300;
+}
+.color-status-refused{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #e60000;
+}
