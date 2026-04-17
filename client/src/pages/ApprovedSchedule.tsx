@@ -1,6 +1,6 @@
 import "../styles/ApprovedSchedule.css";
 import { useMemo, useState } from "react";
-import { getWeekDays, formattedDate, addDays, shortMonth, isSameDay } from "../utils/scheduleDateUtils";
+import { getWeekDays, formattedDate, addDays, shortMonth, isSameDay, formattedYear } from "../utils/scheduleDateUtils";
 import { useGetAvailabilitiesQuery, useUpdateAvailabilityApprovalMutation } from "../api";
 import type { Availability } from "../api";
 import Navbar from "../components/Navbar";
@@ -64,7 +64,7 @@ function ApprovedSchedule(){
         if (items.length == 0) return null;
 
         return (
-            <div style={{display: "flex", height: "100%"}}>
+            <div style={{display: "flex", height: "100%", gap: "4px"}}>
                 <div className="approved-schedule-employee" onClick={() => selectApproval(items[0]?.id, items[0]?.user?.name, date, shiftValue)}>
                     <div className="approved-name">{items[0]?.user?.name.split(" ")[0] ?? ""}</div>
                     <div className="approved-time">{shiftTime(shiftValue)}</div>
@@ -109,7 +109,7 @@ function ApprovedSchedule(){
                         <div className="week-arrows">
                             <div className="arrow-left" onClick={() => setDateReference(addDays(dateReference, -7))}></div>
                             <div className="arrow-right" onClick={() => setDateReference(addDays(dateReference, +7))}></div>
-                            {shortMonth.format((days[3]))} {days[0].getDate()}-{days[days.length-1].getDate()}
+                            {shortMonth.format((days[3]))} {days[0].getDate()}-{days[days.length-1].getDate()} {formattedYear.format(days[0])}
                         </div>
                     </div>
             <table className="week-schedule-table">
